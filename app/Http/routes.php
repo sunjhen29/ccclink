@@ -6,6 +6,11 @@
  */
 
 Route::get('/', 'AgentController@index');
+Route::get('/attendance','AgentController@showAttendance');
+
+
+Route::post('/tasks','TaskController@store');
+
 
 //Agent Authentication
 Route::auth();
@@ -32,6 +37,7 @@ Route::get('admin/password/reset/{token?}','AdminAuth\PasswordController@showRes
 Route::get('/admin', 'AdminController@index');
 
 
+Route::get('/reports/login','ReportController@showLogin');
 
 
 

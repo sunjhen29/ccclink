@@ -18,6 +18,8 @@
     <style>
         body {
             font-family: 'Lato';
+            background-image: {{ url("images/body-bg.png") }};
+
         }
 
         .fa-btn {

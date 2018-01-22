@@ -41,8 +41,7 @@
               </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#">Link in level 2</a></li>
-          <li><a href="#">Link in level 2</a></li>
+          <li><a href="{{ url('/reports/login') }}">Login Reports</a></li>
         </ul>
       </li>
     </ul>
