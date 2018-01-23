@@ -9,7 +9,10 @@ Route::get('/', 'AgentController@index');
 Route::get('/attendance','AgentController@showAttendance');
 
 
+
 Route::post('/tasks','TaskController@store');
+Route::post('/task/{task}','TaskController@update');
+
 
 
 //Agent Authentication

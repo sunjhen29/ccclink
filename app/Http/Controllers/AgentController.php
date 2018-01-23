@@ -15,12 +15,13 @@ class AgentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->user = User::find(auth()->user()->id);
+
 
     }
 
     public function index()
     {
+        $this->user = User::find(auth()->user()->id);
         $page_title = "View Task";
 
         $tasks = $this->user->tasks;
@@ -29,10 +30,9 @@ class AgentController extends Controller
     }
 
     public function showAttendance(){
+        $this->user = User::find(auth()->user()->id);
         $page_title = "View Time Logs";
-
         $user_logins = $this->user->load('user_logins');
-
         return view('attendance', compact('page_title','user_logins'));
     }
 }

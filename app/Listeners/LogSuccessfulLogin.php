@@ -27,10 +27,15 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event)
     {
-        $user_login = new User_Login();
-        $user_login->event = 'login';
-        $user_login->user_id = $event->user->id;
-        $user_login->ip_address = $event->ip;
-        $user_login->save();
+        if(\Auth::guard('admin')->check()){
+
+        } else {
+            $user_login = new User_Login();
+            $user_login->event = 'login';
+            $user_login->user_id = $event->user->id;
+            $user_login->ip_address = $event->ip;
+            $user_login->save();
+        }
+
     }
 }

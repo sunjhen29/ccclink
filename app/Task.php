@@ -8,7 +8,9 @@ class Task extends Model
 {
     protected $table = 'tasks';
 
-    protected $fillable = ['task_name'];
+    protected $fillable = ['task_name','active','finished_at'];
+
+    protected $dates = ['finished_at'];
 
     public function user(){
         return $this->belongsTo('App\User');

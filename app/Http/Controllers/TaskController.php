@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Task;
+use Carbon\Carbon;
 
 
 class TaskController extends Controller
@@ -21,6 +23,11 @@ class TaskController extends Controller
 
     public function store(Request $request){
         $this->user->tasks()->create($request->all());
+        return redirect()->back();
+    }
+
+    public function update(Request $request, Task $task){
+        $task->update(['active'=>false,'finished_at'=>Carbon::now()]);
         return redirect()->back();
     }
 }
