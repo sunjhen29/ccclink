@@ -14,7 +14,8 @@
                 {{ csrf_field() }}
 
                 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input id="email" name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
+                    <!-- <input id="email" name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required> -->
+                    <input id="email" name="username" type="username" class="form-control" placeholder="Username" value="{{ old('username') }}" required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     @if ($errors->has('email'))
                         <span class="help-block">

@@ -121,8 +121,8 @@
               <img src="{{ asset("bower_components/admin-lte/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
 
               <p>
-                Alexander Pierce - Web Developer
-                <small>Member since Nov. 2012</small>
+                {{ auth()->user()->name }}
+                <small>Member since {{ auth()->user()->created_at->format('F Y') }}</small>
               </p>
             </li>
             <!--
@@ -142,7 +142,7 @@
             -->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <!-- <a href="#" class="btn btn-default btn-flat">Profile</a> -->
               </div>
               <div class="pull-right">
                 <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a>
@@ -152,10 +152,12 @@
         </li>
 
 
-        <!-- Control Sidebar Toggle Button -->
+
+        <!-- Control Sidebar Toggle Button
         <li>
           <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
         </li>
+        -->
       </ul>
     </div>
   </nav>

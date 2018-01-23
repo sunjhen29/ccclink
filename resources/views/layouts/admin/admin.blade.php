@@ -6,7 +6,10 @@
   <title>{{ $page_title or "Time and Attendance | Dashboard" }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!--Bootstrap -->
+
+  <link rel="SHORTCUT ICON" href="{{ asset("images/logo2.png") }}">
+
+    <!--Bootstrap -->
   <link rel="stylesheet" href="{{ asset("bower_components/bootstrap/dist/css/bootstrap.min.css") }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset("bower_components/font-awesome/css/font-awesome.min.css") }}">

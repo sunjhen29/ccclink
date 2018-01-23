@@ -12,7 +12,7 @@
                     <table class="table table-hover">
                         <tbody><tr>
                             <th>Date</th>
-                            <th>Task Name</th>
+                            <th>Activity Name</th>
                             <th>Time Started</th>
                             <th>Time End</th>
                             <th>Total Hours</th>
@@ -26,7 +26,7 @@
                                 @if($task->active==1)
                                     <form id="task_update{{ $task->id  }}" method="POST" action="{{ url('/task/'.$task->id) }}">
                                         {{ csrf_field() }}
-                                        <button type="submit" id="btn-search" class="btn btn-danger">End Task</button>
+                                        <button type="submit" id="btn-search" class="btn btn-danger">End Activity</button>
                                     </form>
                                 @else
                                     {{ $task->finished_at->toTimeString() }}
@@ -53,7 +53,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <button type="submit" id="btn-search" class="btn btn-primary">Start New Task</button>
+                                            <button type="submit" id="btn-search" class="btn btn-primary">Start New Activity</button>
                                         </td>
                                     </tr>
                                 </form>
