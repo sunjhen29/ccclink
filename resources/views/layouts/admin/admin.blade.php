@@ -17,6 +17,12 @@
   <link rel="stylesheet" href="{{ asset("bower_components/Ionicons/css/ionicons.min.css") }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset("bower_components/admin-lte/dist/css/AdminLTE.min.css") }}">
+  <!-- Date Range Picker -->
+  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <!-- Bootstrap Date Picker -->
+  <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+
+
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
                                                         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -184,10 +190,91 @@ Some information about this general settings option
 <!-- AdminLTE App -->
 <script src="{{ asset("bower_components/admin-lte/dist/js/adminlte.min.js") }}"></script>
 
+<!-- Date Range Picker -->
+<script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
+<script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+<!-- Bootstrap Date Picker -->
+<script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
 
+
+<script>
+    $(function () {
+
+
+        //Initialize Select2 Elements
+        //$('.select2').select2()
+
+        //Datemask dd/mm/yyyy
+        //$('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+        //Datemask2 mm/dd/yyyy
+        //$('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+        //Money Euro
+        //$('[data-mask]').inputmask()
+
+        //Date range picker
+        //$('#reservation').daterangepicker()
+        //Date range picker with time picker
+        //$('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+        //Date range as a button
+        //$('#daterange-btn').daterangepicker(
+        //        {
+        //            ranges   : {
+        //                'Today'       : [moment(), moment()],
+        //                'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        //                'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+        //                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        //                'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+        //                'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        //            },
+        //            startDate: moment().subtract(29, 'days'),
+        //            endDate  : moment()
+        //        },
+        //        function (start, end) {
+        //            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+        //        }
+        //)
+
+        //Date picker
+        $('#date_from').datepicker({
+            autoclose: true
+        })
+
+        $('#date_to').datepicker({
+            autoclose: true
+        })
+
+        //iCheck for checkbox and radio inputs
+        //$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        //    checkboxClass: 'icheckbox_minimal-blue',
+        //    radioClass   : 'iradio_minimal-blue'
+        //})
+        //Red color scheme for iCheck
+        //$('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+        //    checkboxClass: 'icheckbox_minimal-red',
+        //    radioClass   : 'iradio_minimal-red'
+        //})
+        //Flat red color scheme for iCheck
+        //$('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+        //    checkboxClass: 'icheckbox_flat-green',
+        //    radioClass   : 'iradio_flat-green'
+        //})
+
+        //Colorpicker
+        //$('.my-colorpicker1').colorpicker()
+        //color picker with addon
+        //$('.my-colorpicker2').colorpicker()
+
+        //Timepicker
+        //$('.timepicker').timepicker({
+        //    showInputs: false
+        //})
+    })
+</script>
 
 
 

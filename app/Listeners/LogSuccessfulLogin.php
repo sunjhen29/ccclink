@@ -6,6 +6,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User_Login;
+use Illuminate\Support\Facades\Auth;
 
 class LogSuccessfulLogin
 {
@@ -27,7 +28,7 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event)
     {
-        if(\Auth::guard('admin')->check()){
+        if(Auth::guard('admin')->check()){
 
         } else {
             $user_login = new User_Login();
