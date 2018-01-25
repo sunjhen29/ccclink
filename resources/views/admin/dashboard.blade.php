@@ -14,7 +14,7 @@
                     <i class="ion ion-android-people"></i>
                 </div>
                 <a href="{{ url('/reports/login') }}" class="small-box-footer">
-                    More info <i class="fa fa-arrow-circle-right"></i>
+                    View info <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
@@ -113,28 +113,55 @@
                             </tr>
                         @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"><a href="{{ url('/reports/activity') }}"> View more >></a> </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
                 <!-- /.box-body -->
             </div>
         </div><!-- /.col -->
+
         <div class='col-md-6'>
-            <!-- Box -->
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Second Box</h3>
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                        <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Log in/Log out Monitoring</h3>
+
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <!--
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                            -->
+                        </div>
                     </div>
                 </div>
-                <div class="box-body">
-                    A separate section to add any kind of widget. Feel free
-                    to explore all of AdminLTE widgets by visiting the demo page
-                    on <a href="https://almsaeedstudio.com">Almsaeed Studio</a>.
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-        </div><!-- /.col -->
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Event</th>
+                            <th>Time Log</th>
+                        </tr>
+                        @foreach($user_logins as $login)
+                            <tr>
+                                <td>{{ $login->user->name }}</td>
+                                <td>{{ $login->event }}</td>
+                                <td>{{ $login->created_at->diffForHumans() }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+
 
     </div><!-- /.row -->
 @endsection

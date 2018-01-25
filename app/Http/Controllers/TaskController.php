@@ -22,6 +22,7 @@ class TaskController extends Controller
     }
 
     public function store(Request $request){
+        $request['production_date'] = Carbon::now();
         $this->user->tasks()->create($request->all());
         return redirect()->back();
     }

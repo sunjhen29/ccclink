@@ -5,10 +5,10 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><strong>Daily Time Report</strong></h3>
+                    <h3 class="box-title"><strong>User Activity Report</strong></h3>
                 </div>
                 <div class="box-body">
-                    <form id="frmProductionReport" _lpchecked="1">
+                    <form id="frmActivityReport" >
                         <div class="col-md-1">
                             <label for="job_name" class="control-label">Staff ID</label>
                         </div>
@@ -69,19 +69,35 @@
                             <th>Production Date</th>
                             <th>Employee No.</th>
                             <th>Employee Name</th>
-                            <th>Time In</th>
-                            <th>Time Out</th>
+                            <th>Activity Name</th>
+                            <th>Time Started</th>
+                            <th>Time Finished</th>
+                            <th>Total Hours</th>
                         </tr>
-                        @foreach($user_attendance as $login)
+                        @foreach($tasks as $task)
                             <tr>
-                                <td>{{ $login->production_date }}</td>
-                                <td>{{ $login->user->employee_no }}</td>
-                                <td>{{ $login->user->name }}</td>
-                                <td>{{ $login->created_at->toTimeString() }}</td>
-                                <td>{{ $login->updated_at->toTimeString() }}</td>
-                                <td></td>
+                                <td>{{ $task->production_date }}</td>
+                                <td>{{ $task->user->employee_no }}</td>
+                                <td>{{ $task->user->name }}</td>
+                                <td>{{ $task->task_name }}</td>
+                                <td>{{ $task->created_at->toTimeString() }}</td>
+                                <td>
+                                    @if($task->active==1)
+
+                                    @else
+                                        {{ $task->finished_at->toTimeString() }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($task->finished_at != null)
+                                        {{ $task->finished_at ->diff($task->created_at)->format('%H:%I:%S') }}
+                                    @else
+                                        <span> Ongoing</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
+
                         </tbody>
                     </table>
                 </div>

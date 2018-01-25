@@ -47,9 +47,15 @@
                                     <tr>
                                         <td colspan="4">
                                             <select class="form-control" id="task_name" name="task_name">
-                                                <option>Sample</option>
+                                                <option>Data Entry</option>
                                                 <option>Coffee Break</option>
                                                 <option>Hour Break</option>
+                                                <option>Technical</option>
+                                                <option>Bio / Short Bio</option>
+                                                <option>Training</option>
+                                                <option>Coaching</option>
+                                                <option>Official Business</option>
+                                                <option>HR</option>
                                             </select>
                                         </td>
                                         <td>

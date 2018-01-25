@@ -18,6 +18,8 @@ class CreateAdminsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('username')->unique();
+            $table->integer('employee_no')->unsiqned();
+            $table->string('user_type');
             $table->rememberToken();
             $table->timestamps();
         });

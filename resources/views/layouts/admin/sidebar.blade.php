@@ -34,7 +34,7 @@
       <!-- Optionally, you can add icons to the links -->
       <li class="active"><a href="/admin"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
       <li class="treeview">
-        <a href=""><i class="fa fa-link"></i> <span>Reports</span>
+        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Reports</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -46,6 +46,7 @@
         </ul>
 
       </li>
+      <li class="active"><a href="/users"><i class="fa fa-home"></i> <span>Manage User</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>

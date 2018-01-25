@@ -41,7 +41,9 @@ Route::get('/admin', 'AdminController@index');
 
 
 Route::get('/reports/login','ReportController@showLogin');
+Route::get('/reports/activity','ReportController@showActivity');
 
+Route::get('/users','UserController@index');
 
 
 

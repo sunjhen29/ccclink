@@ -2,10 +2,12 @@
 
 namespace App\Listeners;
 
+use App\User;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User_Login;
+use Carbon\Carbon;
 
 class LogSuccessfulLogout
 {
@@ -27,14 +29,20 @@ class LogSuccessfulLogout
      */
     public function handle(Logout $event)
     {
-        if(\Auth::guard('admin')->check()){
 
-        } else {
             $user_login = new User_Login();
             $user_login->event = 'logout';
             $user_login->user_id = $event->user->id;
+            $user_login->production_date = Carbon::now();
+            $user_login->user_type = $event->user->user_type;
+            $user_login->ip_address = $event->ip;
             $user_login->save();
-        }
+
+            $update_timeout = User_Login::where('user_id',$event->user->id)
+                ->where('production_date',Carbon::now()->toDateString())->first();
+
+            $update_timeout->update(['computer_name'=>Carbon::now()]);
+
 
     }
 }

@@ -26,7 +26,7 @@ class User extends Authenticatable
 
 
     public function user_logins(){
-        return $this->hasMany('App\User_Login','user_id');
+        return $this->hasMany('App\User_Login');
     }
 
     public function tasks(){

@@ -18,6 +18,8 @@ class CreateUserLoginsTable extends Migration
             $table->string('ip_address');
             $table->string('computer_name');
             $table->string('event');
+            $table->string('user_type');
+            $table->date('production_date');
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('status');
             $table->boolean('active')->default(true);
             $table->dateTime('finished_at')->nullable();
+            $table->date('production_date');
             $table->timestamps();
         });
     }
