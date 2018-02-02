@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="refresh" content="60" />
-
+  <!--
+    <meta http-equiv="refresh" content="60" />
+  -->
   <title>{{ $page_title or "Time and Attendance | Dashboard" }}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -23,6 +24,8 @@
   <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
   <!-- Bootstrap Date Picker -->
   <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+  <!-- Bootstrap Data tables -->
+  <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 
 
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -191,17 +194,27 @@ Some information about this general settings option
 <script src="{{ asset("bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("bower_components/admin-lte/dist/js/adminlte.min.js") }}"></script>
-
 <!-- Date Range Picker -->
 <script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
 <script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-
 <!-- Bootstrap Date Picker -->
 <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+<!-- Data tables -->
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
+@stack('scripts')
+
+
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+
+
+
+
+
 
 
 <script>

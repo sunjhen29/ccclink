@@ -29,11 +29,15 @@ class AdminController extends Controller
     {
         $page_title = "Dashboard";
 
-        $headcount = User_Login::where('production_date','=',Carbon::today()->toDateString())->groupBy('user_id')->get();
+        $headcount = User_Login::where('user_type','user')->where('production_date','=',Carbon::today()->toDateString())->groupBy('user_id')->get();
         $user_activities = Task::where("active",true)->get();
 
-        $user_logins =User_Login::where('production_date','=',Carbon::today()->toDateString())->orderBy('created_at','desc')->limit(50)->get();
+        $user_logins =User_Login::where('user_type','user')
+            ->where('production_date','=',Carbon::today()->toDateString())->orderBy('created_at','desc')->limit(50)->get();
 
         return view("admin.dashboard",compact('page_title','user_activities','headcount','user_logins'));
     }
+
+
+
 }

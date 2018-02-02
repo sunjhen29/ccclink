@@ -31,7 +31,8 @@ class ReportController extends Controller
         $page_title = "Reports";
 
         if($request->user_id == '' ){
-            $user_attendance = User_Login::whereBetween('production_date',[$date_from->startOfDay(),$date_to->endOfDay()])
+            $user_attendance = User_Login::where('user_type','user')
+                ->whereBetween('production_date',[$date_from->startOfDay(),$date_to->endOfDay()])
                 ->groupBy('user_id','production_date')
                 ->orderBy('production_date')
                 ->get();

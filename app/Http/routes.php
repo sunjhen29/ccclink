@@ -44,6 +44,6 @@ Route::get('/reports/login','ReportController@showLogin');
 Route::get('/reports/activity','ReportController@showActivity');
 
 Route::get('/users','UserController@index');
-
-
-
+Route::post('/users/create','UserController@create');
+Route::get('/user/{user}','UserController@showUser');
+Route::post('/user/{user}/edit','UserController@update');

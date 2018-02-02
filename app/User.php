@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','username','employee_no','user_type'
     ];
 
     /**
@@ -31,5 +31,9 @@ class User extends Authenticatable
 
     public function tasks(){
         return $this->hasMany('App\Task');
+    }
+
+    public function setPasswordAttribute($value){
+        $value != '' ? $this->attributes['password'] = bcrypt($value) : $this->attributes['password'] = null;
     }
 }
