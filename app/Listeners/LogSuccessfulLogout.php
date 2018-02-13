@@ -39,7 +39,9 @@ class LogSuccessfulLogout
             $user_login->save();
 
             $update_timeout = User_Login::where('user_id',$event->user->id)
+                ->where('user_type','user')
                 ->where('production_date',Carbon::now()->toDateString())->first();
+
 
             $update_timeout->update(['computer_name'=>Carbon::now()]);
 

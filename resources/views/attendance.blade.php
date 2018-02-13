@@ -15,7 +15,7 @@
                             <th>Event</th>
                             <th>Time</th>
                         </tr>
-                        @foreach($user_logins as $login)
+                        @foreach($user_logins->user_logins as $login)
                             <tr>
                                 <td>{{ $login->created_at->toFormattedDateString() }}</td>
                                 <td>

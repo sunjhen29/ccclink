@@ -42,8 +42,15 @@ Route::get('/admin', 'AdminController@index');
 
 Route::get('/reports/login','ReportController@showLogin');
 Route::get('/reports/activity','ReportController@showActivity');
+Route::get('/reports/biometric','ReportController@showBiometric');
 
 Route::get('/users','UserController@index');
 Route::post('/users/create','UserController@create');
 Route::get('/user/{user}','UserController@showUser');
 Route::post('/user/{user}/edit','UserController@update');
+
+Route::get('/email/login/{email}','EmailController@emailLogin');
+
+
+Route::get('/imports/dtr','ImportController@dtr');
+Route::post('/imports/dtr','ImportController@importDtr');

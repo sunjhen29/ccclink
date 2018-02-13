@@ -42,11 +42,11 @@ class SendEmails extends Command
     {
         $headcount = User_Login::where('user_type','user')->where('production_date','=',Carbon::today()->toDateString())->groupBy('user_id')->get();
 
-        Mail::send(['html'=>'mail.headcount'],
+        Mail::send(['html'=>'mail.dtr'],
                     ['data'=>$headcount],
                     function($message){
-                        $message->to('mijaeya@gmail.com','Sunday Doctolero')
-                                ->subject('Sample Email');
+                        $message->to('sundaydoctolero2010@gmail.com','CCC Data Management Services Inc.')
+                                ->subject('Headcount '.Carbon::today()->toDateString());
                     });
     }
 }

@@ -5,10 +5,10 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><strong>Daily Time Report</strong></h3>
+                    <h3 class="box-title"><strong>User Activity Report</strong></h3>
                 </div>
                 <div class="box-body">
-                    <form id="frmProductionReport" _lpchecked="1">
+                    <form id="frmActivityReport" >
                         <div class="col-md-1">
                             <label for="job_name" class="control-label">Staff ID</label>
                         </div>
@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" id="btn-search" class="btn btn-primary">Search</button>
+                            <button type="submit" id="btn-search" class="btn btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -66,37 +66,20 @@
                     <table class="table table-hover">
                         <tbody>
                         <tr>
-                            <th>Production Date</th>
+                            <th>Date</th>
                             <th>Employee No.</th>
-                            <th>Employee Name</th>
-                            <th>Time In</th>
-                            <th>Time Out</th>
+                            <th>Time Log</th>
                         </tr>
-                        @foreach($user_attendance as $login)
+                        @foreach($biometrics as $biometric)
                             <tr>
-                                <td>{{ $login->production_date }}</td>
-                                <td>{{ $login->user->employee_no }}</td>
-                                <td>{{ $login->user->name }}</td>
-                                <td>{{ $login->created_at->toTimeString() }}</td>
-                                <td>{{ $login->updated_at->toTimeString() }}</td>
+                                <td>{{ $biometric->time_log->toDateString() }}</td>
+                                <td>{{ $biometric->operator_id }}</td>
+                                <td>{{ $biometric->time_log->toTimeString() }}</td>
                             </tr>
+
                         @endforeach
+
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5">
-
-                                    <div class="input-group input-group-md">
-                                        <input type="email" class="form-control" name="email" id="email" required>
-                                        <span class="input-group-btn">
-                                          <button type="submit" id="snd-mail" name="snd-mail" class="btn btn-info btn-flat">Send Email</button>
-                                        </span>
-                                    </div>
-
-                                </td>
-
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
                 <!-- /.box-body -->
@@ -106,16 +89,3 @@
 
 
 @endsection
-
-@push('scripts')
-<script>
-    $(document).ready(function(){
-        $('#snd-mail').click(function(){
-            $.get('/email/login/' + $("#email").val(),function(data) {
-                console.log(data);
-                alert(data);
-            })
-        })
-    })
-</script>
-@endpush

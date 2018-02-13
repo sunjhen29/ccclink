@@ -30,6 +30,8 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/admin';
 
+    protected $redirectAfterLogout = '/admin';
+
     protected $guard = 'admin';
 
     /**
@@ -56,9 +58,6 @@ class AuthController extends Controller
     {
         return view('admin.auth.register');
     }
-
-
-
 
 
 

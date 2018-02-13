@@ -41,8 +41,8 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ url('/reports/login') }}">Login Report</a></li>
-          <li><a href="{{ url('/reports/overbreak') }}">Over Break</a></li>
           <li><a href="{{ url('/reports/activity') }}">User Activity Report</a></li>
+          <li><a href="{{ url('/reports/biometric') }}">Biometric Report</a></li>
         </ul>
 
       </li>

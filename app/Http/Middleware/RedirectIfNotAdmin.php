@@ -20,6 +20,7 @@ class RedirectIfNotAdmin
             return redirect('/admin/login');
         }
 
+
         return $next($request);
     }
 }

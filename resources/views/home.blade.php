@@ -3,10 +3,14 @@
 @section('content')
     <div class="row">
         <div class="col-xs-12">
+
             <div class="box box-primary">
+
                 <div class="box-header">
-                    <!-- <h3 class="box-title">View</h3> -->
-                </div>
+
+
+
+            </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
@@ -17,7 +21,7 @@
                             <th>Time End</th>
                             <th>Total Hours</th>
                         </tr>
-                        @foreach($tasks as $task)
+                        @foreach($tasks->tasks as $task)
                         <tr>
                             <td>{{ $task->created_at->toFormattedDateString() }}</td>
                             <td>{{ $task->task_name }}</td>
@@ -41,29 +45,19 @@
                         @endforeach
                         </tbody>
                         <tfoot>
-                            @if(!$tasks->contains('active',true))
-                                <form id="task" method="POST" action="{{ url("/tasks") }}">
-                                    {{ csrf_field() }}
-                                    <tr>
-                                        <td colspan="4">
-                                            <select class="form-control" id="task_name" name="task_name">
-                                                <option>Data Entry</option>
-                                                <option>Coffee Break</option>
-                                                <option>Hour Break</option>
-                                                <option>Technical</option>
-                                                <option>Bio / Short Bio</option>
-                                                <option>Training</option>
-                                                <option>Coaching</option>
-                                                <option>Official Business</option>
-                                                <option>HR</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <button type="submit" id="btn-search" class="btn btn-primary">Start New Activity</button>
-                                        </td>
-                                    </tr>
-                                </form>
-                            @endif
+                        @if(!$tasks->tasks->contains('active',true))
+                            <form id="task" method="POST" action="{{ url("/tasks") }}">
+                                {{ csrf_field() }}
+                                <tr>
+                                    <td colspan="4">
+                                        {{ Form::select('task_name', $task_lists, null, ['class'=>'form-control']) }}
+                                    </td>
+                                    <td>
+                                        <button type="submit" id="btn-search" class="btn btn-success">Start New Activity</button>
+                                    </td>
+                                </tr>
+                            </form>
+                        @endif
                         </tfoot>
                     </table>
                 </div>
