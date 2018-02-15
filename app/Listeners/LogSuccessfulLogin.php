@@ -32,7 +32,7 @@ class LogSuccessfulLogin
         $user_login = new User_Login();
         $user_login->user_id = $event->user->id;
         $user_login->event = 'login';
-        $user_login->ip_address = $event->ip;
+        //$user_login->ip_address = $event->ip;
         $user_login->user_type = $event->user->user_type;
         $user_login->production_date = Carbon::now();
         $user_login->save();
