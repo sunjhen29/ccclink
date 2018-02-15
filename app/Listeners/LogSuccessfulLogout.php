@@ -35,7 +35,7 @@ class LogSuccessfulLogout
             $user_login->user_id = $event->user->id;
             $user_login->production_date = Carbon::now();
             $user_login->user_type = $event->user->user_type;
-            $user_login->ip_address = $event->ip;
+            //$user_login->ip_address = $event->ip;
             $user_login->save();
 
             $update_timeout = User_Login::where('user_id',$event->user->id)
