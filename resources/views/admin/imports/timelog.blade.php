@@ -5,19 +5,26 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><strong>User Activity Report</strong></h3>
-
+                    <h3 class="box-title"><strong>Time Log</strong></h3>
                 </div>
                 <div class="box-body">
-                    <form id="frmActivityReport" >
-                        <div class="col-md-1">
-                            <label for="job_name" class="control-label">Staff ID</label>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
+                    @endif
+
+                    {{ Form::open(array('role'=>'form','url'=>'/imports/timelog','action'=>'POST','files'=>'true')) }}
+                            {{ csrf_field() }}
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="user_id" name="user_id" value="{{ $user_id or '' }}" autofocus="" >
+                            {{ Form::file('attlog',null,['class'=>'form-control','required']) }}
                         </div>
                         <div class="col-md-1">
-                            <label for="production_date">Production</label>
+                            <label for="production_date">Production Date</label>
                         </div>
                         <div class="col-md-2">
                             <div class="input-group date">
@@ -27,16 +34,8 @@
                                 <input type="text" class="form-control pull-right" id="date_from" name="date_from" value="{{ $date1 or \Carbon\Carbon::now()->format('m/d/Y') }}">
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="date_to" name="date_to" value="{{ $date2 or \Carbon\Carbon::now()->format('m/d/Y') }}">
-                            </div>
-                        </div>
                         <div class="col-md-1">
-                            <button type="submit" id="btn-search" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="btn-search" class="btn btn-primary">Start Import</button>
                         </div>
                     </form>
                 </div>
@@ -49,11 +48,10 @@
         <div class='col-md-12'>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Time Logs</h3>
+                    <h3 class="box-title">Imported Dates</h3>
 
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <a href="{{ url('/exports/payroll?date_from='.urlencode($date1).'&date_to='.urlencode($date2).'&user_id='.urlencode($user_id)) }}"><button class="btn btn-success btn-md addbutton pull-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Export to Excel</button></a>
                             <!--
                             <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
                             <div class="input-group-btn">
@@ -66,23 +64,17 @@
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
-                        <tbody>
-                        <tr>
-                            <th>Date</th>
-                            <th>Employee No.</th>
-                            <th>Time Log</th>
-                            <th>Check In / Out</th>
-                        </tr>
-                        @foreach($biometrics as $biometric)
+                        <thead>
                             <tr>
-                                <td>{{ substr($biometric->time_log,0,10) }}</td>
-                                <td>{{ $biometric->operator_id }}</td>
-                                <td>{{ substr($biometric->time_log,11,20) }}</td>
-                                <td>{{ $biometric->in_out == 1 ? "Check In" : "Check Out" }}</td>
+                                <th>Production Date</th>
                             </tr>
-
+                        </thead>
+                        <tbody>
+                        @foreach($production_dates as $production_date)
+                        <tr>
+                            <td>{{ $production_date->production_date }}</td>
+                        </tr>
                         @endforeach
-
                         </tbody>
                     </table>
                 </div>
@@ -93,3 +85,16 @@
 
 
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function(){
+        $('#snd-mail').click(function(){
+            $.get('/email/login/' + $("#email").val(),function(data) {
+                console.log(data);
+                alert(data);
+            })
+        })
+    })
+</script>
+@endpush

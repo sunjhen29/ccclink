@@ -78,6 +78,15 @@ return [
             'schema' => 'public',
         ],
 
+        'sqlsrv' => [
+            'driver' => 'sqlsrv',
+            'host' => 'OFFLINE2\SQLEXPRESS',
+            'database' => 'zkteco',
+            'username'=> 'ccc',
+            'password'=> 'ccc',
+            'prefix' => ''
+        ]
+
     ],
 
     /*

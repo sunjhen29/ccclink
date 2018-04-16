@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "^5.2.0",
         "maatwebsite/excel":"~2.1.0",
-        "barryvdh/laravel-debugbar": "^2.4"
+        "barryvdh/laravel-debugbar": "^2.4",
+        "ahmedali5530/tad-php": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -5,8 +5,7 @@
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><strong>User Activity Report</strong></h3>
-
+                    <h3 class="box-title"><strong>Filter Options</strong></h3>
                 </div>
                 <div class="box-body">
                     <form id="frmActivityReport" >
@@ -49,17 +48,11 @@
         <div class='col-md-12'>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Time Logs</h3>
+                    <h3 class="box-title">Records</h3>
 
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <a href="{{ url('/exports/payroll?date_from='.urlencode($date1).'&date_to='.urlencode($date2).'&user_id='.urlencode($user_id)) }}"><button class="btn btn-success btn-md addbutton pull-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Export to Excel</button></a>
-                            <!--
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                            -->
+                            <a href="{{ url('/exports/payroll?date_from='.urlencode($date1).'&date_to='.urlencode($date2)) }}"><button class="btn btn-success btn-md addbutton pull-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Export to Excel</button></a>
                         </div>
                     </div>
                 </div>
@@ -70,17 +63,26 @@
                         <tr>
                             <th>Date</th>
                             <th>Employee No.</th>
-                            <th>Time Log</th>
-                            <th>Check In / Out</th>
+                            <th>Employee Name</th>
+                            <th>Day</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>In</th>
+                            <th>Out</th>
+                            <th>Remarks</th>
                         </tr>
                         @foreach($biometrics as $biometric)
                             <tr>
-                                <td>{{ substr($biometric->time_log,0,10) }}</td>
-                                <td>{{ $biometric->operator_id }}</td>
-                                <td>{{ substr($biometric->time_log,11,20) }}</td>
-                                <td>{{ $biometric->in_out == 1 ? "Check In" : "Check Out" }}</td>
+                                <td>{{ $biometric->work_date }}</td>
+                                <td>{{ $biometric->employee_no }}</td>
+                                <td>{{ $biometric->employee_name }}</td>
+                                <td>{{ $biometric->day }}</td>
+                                <td>{{ $biometric->in1 }}</td>
+                                <td>{{ $biometric->out1 }}</td>
+                                <td>{{ $biometric->in2 }}</td>
+                                <td>{{ $biometric->out2 }}</td>
+                                <td>{{ $biometric->Remarks }}</td>
                             </tr>
-
                         @endforeach
 
                         </tbody>

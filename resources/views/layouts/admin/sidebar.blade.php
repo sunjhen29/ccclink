@@ -43,9 +43,24 @@
           <li><a href="{{ url('/reports/login') }}">Login Report</a></li>
           <li><a href="{{ url('/reports/activity') }}">User Activity Report</a></li>
           <li><a href="{{ url('/reports/biometric') }}">Biometric Report</a></li>
+          <li><a href="{{ url('/reports/timeinout') }}">Time In / Time Out</a></li>
         </ul>
 
       </li>
+
+      <li class="treeview">
+        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Imports</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ url('/imports/timeinout') }}">Time In / Time Out</a></li>
+          <li><a href="{{ url('/imports/timelog') }}">Timelogs</a></li>
+        </ul>
+
+      </li>
+
       <li class="active"><a href="/users"><i class="fa fa-home"></i> <span>Manage User</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
