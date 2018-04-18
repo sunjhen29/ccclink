@@ -26,6 +26,8 @@ class ExportController extends Controller
 
         $page_title = "Biometric";
 
+        $filename = $date_from->format('Y.m.d')." - ".$date_to->format('Y.m.d');
+
 
         if($request->user_id == '' ){
             $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
@@ -66,16 +68,11 @@ class ExportController extends Controller
         }
 
 
-
-
-
-
-
         DB::connection()->setFetchMode(PDO::FETCH_NUM);
 
         $data = $biometrics;
 
-        Excel::create('sample', function($excel) use($data) {
+        Excel::create($filename, function($excel) use($data) {
             $excel->sheet('Sheet1', function($sheet) use($data) {
                 $sheet->fromArray($data,"'",'A1',false,false);
             });
