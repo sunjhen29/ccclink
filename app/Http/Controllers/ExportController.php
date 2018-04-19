@@ -17,6 +17,7 @@ class ExportController extends Controller
 {
     public function export_payroll(Request $request){
 
+
         $date_from = $request->date_from ? Carbon::createFromFormat('m/d/Y',$request->date_from) : Carbon::now();
         $date_to = $request->date_to ? Carbon::createFromFormat('m/d/Y',$request->date_to) : Carbon::now();
         $user_id = $request->user_id ? $request->user_id : '';
@@ -30,6 +31,7 @@ class ExportController extends Controller
 
 
         if($request->user_id == '' ){
+
             $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
                 ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
                 ->where('in_out',2)
@@ -45,7 +47,7 @@ class ExportController extends Controller
                 ->orderBy('operator_id','asc')
                 ->orderBy('in_out','asc')
                 ->get();
-
+            
         }
         else{
             $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')

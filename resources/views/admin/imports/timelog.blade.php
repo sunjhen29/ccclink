@@ -75,7 +75,7 @@
                             <tr>
                                 <td>{{ $production_date->production_date }}</td>
                                 <td>{{ $production_date->row_count }}</td>
-                                <td><a class='btn btn-sm btn-success' href="/exports/payroll?date_from={{urlencode($production_date->production_date)}}&date_to={{urlencode($production_date->production_date)}}"><i class="fa fa-download"> Download XLS</a></td>
+                                <td><a class='btn btn-sm btn-success' href="/exports/payroll?date_from={{urlencode($production_date->production_date)}}&date_to={{urlencode($production_date->production_date)}}&user_id="><i class="fa fa-download"> Download XLS</a></td>
                                 <td>{{ $production_date->created_at }}</td>
                             </tr>
                         @endforeach

@@ -52,7 +52,7 @@ class ImportController extends Controller
 
 
         $production_dates = DB::table('daily_time_records')
-            ->select('created_at',DB::raw('DATE_FORMAT(production_date,"%d/%m/%Y") as production_date'),DB::raw('count(*) as row_count'))
+            ->select('created_at',DB::raw('DATE_FORMAT(production_date,"%m/%d/%Y") as production_date'),DB::raw('count(*) as row_count'))
             ->groupBy('production_date')
             ->get();
         return view('admin.imports.timelog',compact('production_dates','page_title'));
