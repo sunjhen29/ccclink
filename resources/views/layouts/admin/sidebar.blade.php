@@ -49,14 +49,13 @@
       </li>
 
       <li class="treeview">
-        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Imports</span>
+        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Device</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{ url('/imports/timeinout') }}">Time In / Time Out</a></li>
-          <li><a href="{{ url('/imports/timelog') }}">Timelogs</a></li>
+          <li><a href="{{ url('/imports/timelog') }}">Upload Time Logs</a></li>
         </ul>
 
       </li>

@@ -78,12 +78,7 @@ class ExportController extends Controller
             });
         })->export('xls');
 
-
-
-
-
         return $biometrics;
-
 
     }
 }

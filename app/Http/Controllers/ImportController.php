@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\DailyTimeRecord;
 use App\TimeInTimeOut;
 use App\Http\Requests\TimeLogRequest;
+use Illuminate\Support\Facades\DB;
 
 class ImportController extends Controller
 {
@@ -47,8 +48,14 @@ class ImportController extends Controller
     }
 
     public function Timelog(){
-        $production_dates = DailyTimeRecord::groupBy('production_date')->orderBy('production_date')->get();
-        return view('admin.imports.timelog',compact('production_dates'));
+        $page_title = "Upload Time Logs";
+
+
+        $production_dates = DB::table('daily_time_records')
+            ->select('created_at',DB::raw('DATE_FORMAT(production_date,"%d/%m/%Y") as production_date'),DB::raw('count(*) as row_count'))
+            ->groupBy('production_date')
+            ->get();
+        return view('admin.imports.timelog',compact('production_dates','page_title'));
     }
 
     public function importTimelog(TimeLogRequest $request){
@@ -121,19 +128,6 @@ class ImportController extends Controller
                     }
                     $timeinout->save();
                 }
-
-
-
-
-
-                //$production_date = Carbon::createFromFormat('Y-m-d H:i:s',$data[1]);
-
-                //if($production_date->toDateString() == $date->toDateString()){
-                  //  DailyTimeRecord::firstOrCreate(['operator_id' => $data[0],'time_log'=>$data[1],'device_id'=>$data[2],'in_out'=>$data[3],'production_date'=>$production_date->toDateString()]);
-                //}
-
-
-
             }
         }
 

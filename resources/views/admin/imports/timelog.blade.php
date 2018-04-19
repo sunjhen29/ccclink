@@ -48,8 +48,6 @@
         <div class='col-md-12'>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Imported Dates</h3>
-
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <!--
@@ -66,14 +64,20 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Production Date</th>
+                                <th>PRODUCTION DATE</th>
+                                <th>ROWS IMPORTED</th>
+                                <th>COMMAND</th>
+                                <th>UPLOAD TIMELOG</th>
                             </tr>
                         </thead>
                         <tbody>
                         @foreach($production_dates as $production_date)
-                        <tr>
-                            <td>{{ $production_date->production_date }}</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $production_date->production_date }}</td>
+                                <td>{{ $production_date->row_count }}</td>
+                                <td><a class='btn btn-sm btn-success' href="/exports/payroll?date_from={{urlencode($production_date->production_date)}}&date_to={{urlencode($production_date->production_date)}}"><i class="fa fa-download"> Download XLS</a></td>
+                                <td>{{ $production_date->created_at }}</td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>
