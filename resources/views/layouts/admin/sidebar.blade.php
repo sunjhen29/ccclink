@@ -67,6 +67,7 @@
               </span>
         </a>
         <ul class="treeview-menu">
+          <li><a href="{{ url('/department') }}">Department</a></li>
           <li><a href="{{ url('/users') }}">Personnel</a></li>
         </ul>
 

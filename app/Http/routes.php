@@ -7,6 +7,7 @@
 
 Route::get('/', 'AgentController@index');
 Route::get('/attendance','AgentController@showAttendance');
+Route::get('/punch','AgentController@showPunch');
 
 
 
@@ -49,6 +50,17 @@ Route::get('/users','UserController@index');
 Route::post('/users/create','UserController@create');
 Route::get('/user/{user}','UserController@showUser');
 Route::post('/user/{user}/edit','UserController@update');
+
+Route::get('/department','DepartmentController@index');
+Route::post('/department/create','DepartmentController@create');
+Route::get('/department/{dept}','DepartmentController@showDepartment');
+Route::post('/department/{dept}/edit','DepartmentController@update');
+
+
+
+
+
+
 
 Route::get('/email/login/{email}','EmailController@emailLogin');
 

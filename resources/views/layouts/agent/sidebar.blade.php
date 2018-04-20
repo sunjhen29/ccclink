@@ -36,6 +36,7 @@
       <li class="header">MAIN NAVIGATION</li>
       <li class="active"><a href="{{ url('/') }}"><i class="fa fa-clock-o"></i> <span>Activity</span></a></li>
       <li><a href="{{ url('/attendance') }}"><i class="fa fa-calendar-times-o"></i> <span>Attendance</span></a></li>
+      <li><a href="{{ url('/punch') }}"><i class="fa fa-calendar-times-o"></i> <span>Punch Details</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>
