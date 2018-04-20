@@ -125,13 +125,7 @@
                                                     <label for="department" class="pull-right">Department</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select name="department" id="department" class="form-control" required>
-                                                        <option disabled selected value> -- Select Department -- </option>
-                                                        <option>IT Department</option>
-                                                        <option>Newspaper Department</option>
-                                                        <option>Accounting Department</option>
-                                                        <option>HR Department</option>
-                                                    </select>
+                                                    {{ Form::select('department',\App\Department::lists('department_name','department_code'),null,['id' => 'department','class'=> 'form-control','placeholder' => '-- Select Department --']) }}
                                                 </div>
                                             </div>
 
@@ -200,7 +194,6 @@
 @push('scripts')
     <script>
         $(document).ready(function(){
-
             $('#btn-add').click(function(){
                 $('#frmUser').trigger("reset");
                 $('.modal-title').html('Add New User');

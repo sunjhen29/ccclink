@@ -24,7 +24,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     public function user_logins(){
         return $this->hasMany('App\User_Login');
     }
@@ -36,4 +35,9 @@ class User extends Authenticatable
     public function setPasswordAttribute($value){
         $value != '' ? $this->attributes['password'] = bcrypt($value) : $this->attributes['password'] = null;
     }
+
+    public function department(){
+        return $this->belongsTo('App\Department','department','department_code');
+    }
+
 }
