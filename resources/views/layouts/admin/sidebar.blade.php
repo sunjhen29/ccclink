@@ -60,7 +60,17 @@
 
       </li>
 
-      <li class="active"><a href="/users"><i class="fa fa-home"></i> <span>Manage User</span></a></li>
+      <li class="treeview">
+        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Personnel</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ url('/users') }}">Personnel</a></li>
+        </ul>
+
+      </li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>

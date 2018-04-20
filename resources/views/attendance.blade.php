@@ -2,6 +2,43 @@
 
 @section('content')
     <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><strong>User Activity Report</strong></h3>
+
+                </div>
+                <div class="box-body">
+                    <form id="frmActivityReport" >
+                        <div class="col-md-3">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    From
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="date_from" name="date_from" value="{{ $date1 or \Carbon\Carbon::now()->format('m/d/Y') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    To
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="date_to" name="date_to" value="{{ $date2 or \Carbon\Carbon::now()->format('m/d/Y') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" id="btn-search" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xs-12">
             <div class="box box-primary">
                 <div class="box-header">
@@ -11,18 +48,21 @@
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tbody><tr>
-                            <th>Date</th>
-                            <th>Event</th>
-                            <th>Time</th>
+                            <th>Production Date</th>
+                            <th>Time In</th>
+                            <th>Time Out</th>
                         </tr>
-                        @foreach($user_logins->user_logins as $login)
-                            <tr>
-                                <td>{{ $login->created_at->toFormattedDateString() }}</td>
-                                <td>
-                                    {{ $login->event }}
-                                </td>
-                                <td>{{ $login->created_at->toTimeString() }}</td>
-                            </tr>
+                        @foreach($biometrics as $dtr)
+
+                            @if($dtr->in_out == 0)
+                                <tr>
+                                    <td>{{ $dtr->production_date }}</td>
+                                    <td>{{ $dtr->time_log }}</td>
+
+                            @else
+                                        <td>{{ $dtr->time_log }}</td>
+                                </tr>
+                            @endif
                         @endforeach
                         </tbody>
                         <tfoot>

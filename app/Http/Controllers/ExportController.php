@@ -47,7 +47,7 @@ class ExportController extends Controller
                 ->orderBy('operator_id','asc')
                 ->orderBy('in_out','asc')
                 ->get();
-            
+
         }
         else{
             $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')

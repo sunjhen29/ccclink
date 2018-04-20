@@ -15,18 +15,15 @@ class UserController extends Controller
     }
 
     public function index(){
-        $page_title = "Manage User";
+        $page_title = "Manage Personnel";
         $users = User::all();
-
         return view('admin.user.user',compact('page_title','users'));
     }
 
     public function create(Request $request){
-
+        $request['password'] = '1234';
         User::create($request->all());
-
-        return User::all();
-
+        return redirect('/users');
     }
 
     public function showUser(User $user){

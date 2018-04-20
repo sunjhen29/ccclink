@@ -50,7 +50,6 @@ class ImportController extends Controller
     public function Timelog(){
         $page_title = "Upload Time Logs";
 
-
         $production_dates = DB::table('daily_time_records')
             ->select('created_at',DB::raw('DATE_FORMAT(production_date,"%m/%d/%Y") as production_date'),DB::raw('count(*) as row_count'))
             ->groupBy('production_date')
@@ -71,8 +70,6 @@ class ImportController extends Controller
             while(($data= fgetcsv($handle,100000,"\t")) !== false){
 
                 $production_date = Carbon::createFromFormat('m/d/Y H:i:s',substr($data[0],21,19));
-
-
 
                 if($production_date->toDateString() == $date->toDateString()){
                     DailyTimeRecord::firstOrCreate(['operator_id' => substr($data[0],0,3),'time_log'=>$production_date,'device_id'=>1,'in_out'=>substr($data[0],41,1),'production_date'=>$production_date->toDateString()]);

@@ -35,7 +35,7 @@
       <!-- Optionally, you can add icons to the links -->
       <li class="header">MAIN NAVIGATION</li>
       <li class="active"><a href="{{ url('/') }}"><i class="fa fa-clock-o"></i> <span>Activity</span></a></li>
-      <li><a href="{{ url('/attendance') }}"><i class="fa fa-calendar-times-o"></i> <span>Time Logs</span></a></li>
+      <li><a href="{{ url('/attendance') }}"><i class="fa fa-calendar-times-o"></i> <span>Attendance</span></a></li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>
