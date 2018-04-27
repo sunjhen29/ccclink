@@ -42,8 +42,6 @@
         <ul class="treeview-menu">
           <li><a href="{{ url('/reports/login') }}">Login Report</a></li>
           <li><a href="{{ url('/reports/activity') }}">User Activity Report</a></li>
-          <li><a href="{{ url('/reports/biometric') }}">Biometric Report</a></li>
-          <li><a href="{{ url('/reports/timeinout') }}">Time In / Time Out</a></li>
         </ul>
 
       </li>
@@ -56,6 +54,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ url('/imports/timelog') }}">Upload Time Logs</a></li>
+          <li><a href="{{ url('/imports/biometric') }}">Device Log</a></li>
         </ul>
 
       </li>
@@ -72,6 +71,22 @@
         </ul>
 
       </li>
+
+      <li class="treeview">
+        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Attendance</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ url('/leave_type') }}">Leave Type</a></li>
+          <li><a href="{{ url('/leave') }}">Exception</a></li>
+          <li><a href="{{ url('attendance/timerecord') }}">Time Record</a></li>
+        </ul>
+
+      </li>
+
+
     </ul>
     <!-- /.sidebar-menu -->
   </section>

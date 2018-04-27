@@ -1,4 +1,14 @@
-@extends('layouts.admin.admin')
+@extends('layouts.admin.admin',[
+            'page_title'=>"Dashboard",
+            'filter_option'=>false,
+            'filter_option_title' => null,
+            'datatable'=>false,
+            'addButton' => false,
+            'theadings' => null,
+            'export' => false,
+            'modal'=>false
+        ])
+
 
 @section('content')
     <div class="row">

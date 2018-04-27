@@ -16,9 +16,8 @@ class DepartmentController extends Controller
     }
 
     public function index(){
-        $page_title = "Manage Department";
         $departments = Department::all();
-        return view('admin.user.department',compact('page_title','departments'));
+        return view('admin.user.department',compact('departments'));
     }
 
     public function create(Request $request){

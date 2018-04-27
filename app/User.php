@@ -36,8 +36,17 @@ class User extends Authenticatable
         $value != '' ? $this->attributes['password'] = bcrypt($value) : $this->attributes['password'] = null;
     }
 
-    public function department(){
+    public function dept(){
         return $this->belongsTo('App\Department','department','department_code');
     }
+
+    public function leaves(){
+        return $this->hasMany('App\Leave');
+    }
+
+    public function getfullnameAttribute(){
+        return $this->attributes['lastname'].", ".$this->attributes['firstname'];
+    }
+
 
 }

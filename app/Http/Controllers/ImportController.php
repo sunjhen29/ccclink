@@ -47,17 +47,17 @@ class ImportController extends Controller
 
     }
 
-    public function Timelog(){
-        $page_title = "Upload Time Logs";
-
+    public function TimeLog(){
         $production_dates = DB::table('daily_time_records')
             ->select('created_at',DB::raw('DATE_FORMAT(production_date,"%m/%d/%Y") as production_date'),DB::raw('count(*) as row_count'))
             ->groupBy('production_date')
+            ->orderBy('production_date','desc')
             ->get();
-        return view('admin.imports.timelog',compact('production_dates','page_title'));
+
+        return view('admin.imports.timeLog',compact('production_dates'));
     }
 
-    public function importTimelog(TimeLogRequest $request){
+    public function importTimeLog(TimeLogRequest $request){
         $file = $request->file('attlog');
         $date = Carbon::createFromFormat('m/d/Y',$request->date_from);
 

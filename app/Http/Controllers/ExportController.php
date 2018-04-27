@@ -15,6 +15,12 @@ use Excel;
 
 class ExportController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function export_payroll(Request $request){
 
 

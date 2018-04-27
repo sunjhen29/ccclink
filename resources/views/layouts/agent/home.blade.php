@@ -21,6 +21,16 @@
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{ asset("bower_components/admin-lte/dist/css/skins/skin-blue.min.css") }}">
 
+    <!-- Bootstrap Data tables -->
+  <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <!-- Date Range Picker -->
+    <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <!-- Bootstrap Date Picker -->
+    <link rel="stylesheet" href="{{ asset('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+
+
+
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -56,7 +66,13 @@
 
                     <section class="content container-fluid"> <!-- Main Content -->
 
-                      @yield('content')
+                        @yield('content')
+
+                        @if(!isset($crud))
+                            @include('layouts.components.datatable')
+                            @include('layouts.components.modal')
+                        @endif
+
 
                     </section>
           </div>
@@ -73,8 +89,45 @@
     <script src="{{ asset("bower_components/bootstrap/dist/js/bootstrap.min.js") }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset("bower_components/admin-lte/dist/js/adminlte.min.js") }}"></script>
+    <!-- Data tables -->
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <!-- Date Range Picker -->
+    <script src="{{ asset('bower_components/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('bower_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Bootstrap Date Picker -->
+    <script src="{{ asset('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
 
     @stack('scripts')
+
+    <script>
+        $(document).ready(function(){
+            //Data Table
+
+            $(function () {
+                $('#myTable').DataTable({
+                    'paging'      : true,
+                    'lengthChange': true,
+                    'searching'   : true,
+                    'ordering'    : true,
+                    'info'        : true,
+                    'autoWidth'   : false,
+                    'responsive'  : true,
+                    'pageLength'  : 25
+                })
+            })
+
+            //Date Picker
+            $('#date_from').datepicker({
+                autoclose: true
+            })
+
+            $('#date_to').datepicker({
+                autoclose: true
+            })
+
+        })
+    </script>
 
 </body>
 </html>

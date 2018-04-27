@@ -21,18 +21,10 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $page_title = "Dashboard";
-
         $headcount = User_Login::where('user_type','user')->where('production_date','=',Carbon::today()->toDateString())->groupBy('user_id')->get();
         $user_activities = Task::where("active",true)->get();
-
 
         $over_break = DB::table('tasks')
                     ->select('id','task_name','finished_at','created_at', DB::raw('TIME_TO_SEC(TIMEDIFF(finished_at,created_at)) as timediff' ))
@@ -44,7 +36,7 @@ class AdminController extends Controller
         $user_logins =User_Login::where('user_type','user')
             ->where('production_date','=',Carbon::today()->toDateString())->orderBy('created_at','desc')->limit(50)->get();
 
-        return view("admin.dashboard",compact('page_title','user_activities','headcount','user_logins','over_break'));
+        return view("admin.dashboard",compact('user_activities','headcount','user_logins','over_break'));
     }
 
 

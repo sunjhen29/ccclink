@@ -9,6 +9,9 @@ use App\User;
 use App\ActivityLookup;
 use Carbon\Carbon;
 use App\DailyTimeRecord;
+use App\Leave;
+
+use Illuminate\Support\Facades\Auth;
 
 
 class AgentController extends Controller
@@ -17,11 +20,13 @@ class AgentController extends Controller
 
     public $today;
 
+    public $auth_user;
+
     public function __construct()
     {
         $this->middleware('auth');
         $this->today = Carbon::today()->toDateString();
-
+        $this->auth_user = Auth::user();
     }
 
     public function index()
@@ -91,6 +96,34 @@ class AgentController extends Controller
 
     }
 
+    public function showLeave(Request $request){
 
+        $page_title = "Manage Leave";
+        $this->user = User::find(auth()->user()->id);
+
+        $date_from = $request->date_from ? Carbon::createFromFormat('m/d/Y',$request->date_from) : Carbon::yesterday()->subDay(7);
+        $date_to = $request->date_to ? Carbon::createFromFormat('m/d/Y',$request->date_to) : Carbon::yesterday();
+
+        $date1= $date_from->format('m/d/Y');
+        $date2 = $date_to->format('m/d/Y');
+
+        $leaves = $this->auth_user->leaves()->get();
+
+        return view('leave', compact('page_title','leaves','date1','date2'));
+    }
+
+    public function createLeave(Request $request){
+        $request['leave_date'] = Carbon::createFromFormat('m/d/Y',$request->date_from)->format('Y-m-d');
+        $request['user_id'] = auth()->user()->id;
+        $request['status'] = 'Pending';
+        Leave::create($request->all());
+        return redirect('/agent_leave');
+    }
+
+    public function updateLeave(Leave $leave, Request $request){
+        $request['leave_date'] = Carbon::createFromFormat('m/d/Y',$request->date_from)->format('Y-m-d');
+        $leave->update($request->all());
+        return redirect('/agent_leave');
+    }
 
 }

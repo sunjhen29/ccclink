@@ -15,9 +15,8 @@ class UserController extends Controller
     }
 
     public function index(){
-        $page_title = "Manage Personnel";
-        $users = User::with('department')->get();
-        return view('admin.user.user',compact('page_title','users'));
+        $users = User::with('dept')->get();
+        return view('admin.user.user',compact('users'));
     }
 
     public function create(Request $request){
