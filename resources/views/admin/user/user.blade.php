@@ -4,7 +4,7 @@
             'filter_option_title' => null,
             'datatable'=>true,
             'addButton' => true,
-            'theadings' => array('DEPARTMENT CODE','DEPARTMENT','COMMAND'),
+            'theadings' => array('OPERATOR ID','DEPARTMENT NAME','POSITION','EMPLOYEE NAME','USERNAME','EMAIL','COMMAND'),
             'export' => false,
             'modal'=>true
         ])
@@ -94,7 +94,7 @@
                                     <label for="department" class="pull-right">Department</label>
                                 </div>
                                 <div class="col-md-8">
-                                    {{ Form::select('department',\App\Department::lists('department_name','department_code'),null,['id' => 'department','class'=> 'form-control','placeholder' => '-- Select Department --']) }}
+                                    {{ Form::select('department',\App\Department::lists('department_name','id'),null,['id' => 'department','class'=> 'form-control','placeholder' => '-- Select Department --']) }}
                                 </div>
                             </div>
 

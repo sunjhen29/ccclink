@@ -53,15 +53,14 @@ class ImportController extends Controller
             ->groupBy('production_date')
             ->orderBy('production_date','desc')
             ->get();
-
         return view('admin.imports.timeLog',compact('production_dates'));
     }
 
     public function importTimeLog(TimeLogRequest $request){
         $file = $request->file('attlog');
-        $date = Carbon::createFromFormat('m/d/Y',$request->date_from);
-
+        $date = str_to_carbon($request->date_from,'m/d/Y');
         $filename = $file->getClientOriginalName();
+
         $storage = base_path().'/storage/app/timelog';
 
         $file->move($storage,$filename);

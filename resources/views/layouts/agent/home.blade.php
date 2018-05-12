@@ -67,13 +67,6 @@
                     <section class="content container-fluid"> <!-- Main Content -->
 
                         @yield('content')
-
-                        @if(!isset($crud))
-                            @include('layouts.components.datatable')
-                            @include('layouts.components.modal')
-                        @endif
-
-
                     </section>
           </div>
 

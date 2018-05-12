@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use PDO;
 use App\DailyTimeRecord;
 use Excel;
+use App\User;
 
 
 class ExportController extends Controller
@@ -23,47 +24,54 @@ class ExportController extends Controller
 
     public function export_payroll(Request $request){
 
-
-        $date_from = $request->date_from ? Carbon::createFromFormat('m/d/Y',$request->date_from) : Carbon::now();
+        $date_from = str_to_carbon($request->date_from,'m/d/Y');
         $date_to = $request->date_to ? Carbon::createFromFormat('m/d/Y',$request->date_to) : Carbon::now();
         $user_id = $request->user_id ? $request->user_id : '';
-
-        $date1= $date_from->format('m/d/Y');
-        $date2 = $date_to->format('m/d/Y');
-
-        $page_title = "Biometric";
-
         $filename = $date_from->format('Y.m.d')." - ".$date_to->format('Y.m.d');
 
 
         if($request->user_id == '' ){
+            if($request->department == ''){
+                $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%m/%d/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
+                    ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
+                    ->where('in_out',2)
+                    ->groupBy('operator_id','in_out','production_date');
+                $biometrics = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%m/%d/%Y") as production_date,TIME(min(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
+                    ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
+                    ->where('in_out',1)
+                    ->union($checkout)
+                    ->groupBy('operator_id','in_out','production_date')
+                    ->orderBy('production_date','asc')
+                    ->orderBy('operator_id','asc')
+                    ->orderBy('in_out','asc')
+                    ->get();
+            } else {
 
-            $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
-                ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
-                ->where('in_out',2)
-                ->groupBy('operator_id','in_out','production_date');
-
-
-            $biometrics = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(time_log) as time_log,IF(in_out = 1, "0", "1") as in_out')
-                ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
-                ->where('in_out',1)
-                ->union($checkout)
-                ->groupBy('operator_id','in_out','production_date')
-                ->orderBy('production_date','asc')
-                ->orderBy('operator_id','asc')
-                ->orderBy('in_out','asc')
-                ->get();
-
+                $operator_ids = User::select('employee_no')->where('department',$request->department)->get()->toArray();
+                $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%m/%d/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
+                    ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
+                    ->where('in_out',2)
+                    ->wherein('operator_id',$operator_ids)
+                    ->groupBy('operator_id','in_out','production_date');
+                $biometrics = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%m/%d/%Y") as production_date,TIME(min(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
+                    ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
+                    ->where('in_out',1)
+                    ->wherein('operator_id',$operator_ids)
+                    ->union($checkout)
+                    ->groupBy('operator_id','in_out','production_date')
+                    ->orderBy('production_date','asc')
+                    ->orderBy('operator_id','asc')
+                    ->orderBy('in_out','asc')
+                    ->get();
+            }
         }
         else{
-            $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
+            $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%m/%d/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
                 ->where('operator_id',$user_id)
                 ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
                 ->where('in_out',2)
                 ->groupBy('production_date','operator_id','in_out');
-            //->get();
-
-            $biometrics = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(time_log) as time_log,IF(in_out = 1, "0", "1") as in_out')
+           $biometrics = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%m/%d/%Y") as production_date,TIME(min(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
                 ->where('operator_id',$user_id)
                 ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
                 ->where('in_out',1)
@@ -78,11 +86,9 @@ class ExportController extends Controller
 
         DB::connection()->setFetchMode(PDO::FETCH_NUM);
 
-        $data = $biometrics;
-
-        Excel::create($filename, function($excel) use($data) {
-            $excel->sheet('Sheet1', function($sheet) use($data) {
-                $sheet->fromArray($data,"'",'A1',false,false);
+        Excel::create($filename, function($excel) use($biometrics) {
+            $excel->sheet('Sheet1', function($sheet) use($biometrics) {
+                $sheet->fromArray($biometrics,"'",'A1',false,false);
             });
         })->export('xls');
 

@@ -14,6 +14,7 @@ class CreateActivityLookupsTable extends Migration
     {
         Schema::create('activity_lookups', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code');
             $table->string('description');
             $table->integer('jobnumber_id')->unsigned();
             $table->string('remarks');

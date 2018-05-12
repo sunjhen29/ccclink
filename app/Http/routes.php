@@ -51,6 +51,8 @@ Route::get('/users','UserController@index');
 Route::post('/users/create','UserController@create');
 Route::get('/user/{user}','UserController@showUser');
 Route::post('/user/{user}/edit','UserController@update');
+Route::get('/user/dept/{dept_id}','UserController@findByDeptId');
+
 
 Route::get('/department','DepartmentController@index');
 Route::post('/department/create','DepartmentController@create');
@@ -69,6 +71,17 @@ Route::post('/leave/{leave}/edit','LeaveController@update');
 Route::post('/leave/{leave}/approve','LeaveController@approve');
 Route::post('/leave/{leave}/decline','LeaveController@decline');
 
+Route::get('/settings/adminuser','AdminUserController@index');
+
+
+Route::get('/timetable','LeaveController@index');
+Route::post('/timetable/create','LeaveController@create');
+Route::get('/timetable/{leave}','LeaveController@show');
+Route::post('/timetable/{leave}/edit','LeaveController@update');
+Route::post('/timetable/{leave}/approve','LeaveController@approve');
+Route::post('/timetable/{leave}/decline','LeaveController@decline');
+
+
 
 Route::get('/attendance/timerecord','ReportController@showTimeInOut');
 
@@ -78,9 +91,6 @@ Route::get('/attendance/timerecord','ReportController@showTimeInOut');
 
 Route::post('/dailytimerecord/create','DailyTimeRecordController@create');
 Route::get('/dailytimerecord/{dtr}','DailyTimeRecordController@show');
-
-
-
 
 
 

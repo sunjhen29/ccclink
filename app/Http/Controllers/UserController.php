@@ -33,4 +33,17 @@ class UserController extends Controller
         $user->update($request->all());
         return redirect('/users');
     }
+
+    public function findByDeptId($dept_id){
+
+        if($dept_id == 9999){
+            $users = User::pluck('employee_no','employee_no');
+                return "hi";
+        }else{
+            $users = User::where('department',$dept_id)->pluck('employee_no','employee_no');
+        }
+
+
+        return json_encode($users);
+    }
 }

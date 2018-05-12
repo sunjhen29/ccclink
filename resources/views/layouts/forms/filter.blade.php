@@ -1,10 +1,18 @@
 <form id="frmFilter" >
     <div class="col-md-1">
+        <label for="department_id" class="control-label">Department</label>
+    </div>
+    <div class="col-md-2">
+        {{ Form::select('department',\App\Department::lists('department_name','id'),null,['id' => 'department','class'=> 'form-control','placeholder' => 'All Department']) }}
+    </div>
+    <div class="col-md-1">
         <label for="user_id" class="control-label">Staff ID</label>
     </div>
     <div class="col-md-2">
-        <input type="text" class="form-control" id="user_id" name="user_id" value="{{ getInput('user_id') }}" >
+             {{ Form::select('user_id',\App\User::lists('employee_no','employee_no'),getInput('user_id',null),['id' => 'user_id','class'=> 'form-control','placeholder' => '-- Select User --']) }}
+            <span id="loader"><i class="fa fa-spinner fa-3x fa-spin"></i></span>
     </div>
+
     <div class="col-md-1">
         <label for="production_date">Production</label>
     </div>

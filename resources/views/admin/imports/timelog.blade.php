@@ -12,9 +12,6 @@
 @section('filter_option')
     {!! Form::open(array('role'=>'form','url'=>'/imports/timelog','action'=>'POST','files'=>'true')) !!}
     {{ csrf_field() }}
-    <div class="col-md-2">
-        {{ Form::file('attlog',null,['class'=>'form-control','required'=>'required']) }}
-    </div>
     <div class="col-md-1">
         <label for="production_date">Production Date</label>
     </div>
@@ -25,6 +22,9 @@
             </div>
             <input type="text" class="form-control pull-right" id="date_from" name="date_from" value="{{ carbon_yesterday('m/d/Y') }}">
         </div>
+    </div>
+    <div class="col-md-2">
+        {{ Form::file('attlog',null,['class'=>'form-control','required'=>'required']) }}
     </div>
     <div class="col-md-1">
         <button type="submit" id="btn-search" class="btn btn-primary">Upload to Database</button>

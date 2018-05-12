@@ -210,13 +210,12 @@ Some information about this general settings option
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
-@stack('scripts')
 
 <script>
     $(document).ready(function(){
         //Data Table
-        $(function () {
-            $('#myTable').DataTable({
+        //$(function () {
+           var table = $('#myTable').DataTable({
                 'paging'      : true,
                 'lengthChange': true,
                 'searching'   : true,
@@ -227,7 +226,7 @@ Some information about this general settings option
                 'pageLength'  : 25,
                 "order": []
             })
-        })
+        //})
 
         //Date Picker
         $('#date_from').datepicker({
@@ -240,5 +239,65 @@ Some information about this general settings option
 
     })
 </script>
+<script>
+    $(document).ready(function() {
+
+        var default_user = $('select[name="user_id"]').val();
+
+        $('#loader').css("visibility", "hidden");
+
+        $(function () {
+            $('select[name="department"]').change();
+        });
+
+
+        $('select[name="department"]').on('change', function(){
+            var dept_id = $(this).val();
+
+            if(dept_id == ''){
+                dept_id = 9999;
+            }
+
+
+            if(dept_id) {
+
+                 $.ajax({
+                    url: '/user/dept/'+dept_id,
+                    type:"GET",
+                    dataType:"json",
+                    beforeSend: function(){
+                        $('#loader').css("visibility", "visible");
+                    },
+
+                    success:function(data) {
+
+                        $('select[name="user_id"]').empty();
+
+                        $('select[name="user_id"]').append('<option value="">All User</option>');
+
+                        $.each(data, function(key, value){
+                             $('select[name="user_id"]').append('<option value="'+ key +'">' + value + '</option>');
+                        });
+
+                        $('select[name="user_id"]').val(default_user);
+
+                    },
+                    complete: function(){
+                        $('#loader').css("visibility", "hidden");
+                    }
+                });
+            } else {
+                $('select[name="user_id"]').empty();
+            }
+
+        });
+
+    });
+</script>
+
+
+
+@stack('scripts')
+
 </body>
 </html>

@@ -6,7 +6,7 @@
                     <h3 class="box-title"><button id="btn-add" name="btn-add" class="btn btn-success btn-md addbutton"><span class="glyphicon glyphicon-plus"></span> Add {{ $addText or 'New Record'  }}</button> </h3>
                 @endif
                 @if($export == true)
-                    <a href="{{ url('/exports/payroll?date_from='.urlencode(getInput('date_from',carbon_yesterday('m/d/Y'))).'&date_to='.urlencode(getInput('date_to',carbon_yesterday('m/d/Y')))) }}"><button class="btn btn-success btn-md addbutton pull-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Export to Excel</button></a>
+                    <a href="{{ url('/exports/payroll?department='.urlencode(getInput('department','')).'&user_id='.urlencode(getInput('user_id','')).'&date_from='.urlencode(getInput('date_from',carbon_yesterday('m/d/Y'))).'&date_to='.urlencode(getInput('date_to',carbon_yesterday('m/d/Y')))) }}"><button class="btn btn-success btn-md addbutton pull-right"><i class="fa fa-file-excel-o" aria-hidden="true"></i>  Export to Excel</button></a>
                 @endif
             </div>
             <div class="box-body">
@@ -21,6 +21,9 @@
                     <tbody>
                         @yield('datatable')
                     </tbody>
+                    <tfoot>
+
+                    </tfoot>
                 </table>
             </div>
         </div>

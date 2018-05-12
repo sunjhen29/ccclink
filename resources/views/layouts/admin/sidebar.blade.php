@@ -79,6 +79,7 @@
               </span>
         </a>
         <ul class="treeview-menu">
+          <li><a href="{{ url('/timetable') }}">Time Table</a></li>
           <li><a href="{{ url('/leave_type') }}">Leave Type</a></li>
           <li><a href="{{ url('/leave') }}">Exception</a></li>
           <li><a href="{{ url('attendance/timerecord') }}">Time Record</a></li>
@@ -86,7 +87,18 @@
 
       </li>
 
-
+      @if(auth()->guard('admin')->user()->user_type == 'superadmin')
+      <li class="treeview">
+        <a href=""><i class="ion ion-ios-paper-outline"></i> <span>Settings</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ url('/settings/adminuser') }}">Admin Users</a></li>
+        </ul>
+      </li>
+      @endif
     </ul>
     <!-- /.sidebar-menu -->
   </section>

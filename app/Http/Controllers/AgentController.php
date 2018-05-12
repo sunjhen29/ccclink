@@ -10,6 +10,7 @@ use App\ActivityLookup;
 use Carbon\Carbon;
 use App\DailyTimeRecord;
 use App\Leave;
+use DB;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -32,54 +33,35 @@ class AgentController extends Controller
     public function index()
     {
         $this->user = User::find(auth()->user()->id);
-        $page_title = "Activity Log";
+
         $tasks = $this->user->load(['tasks'=>function($query){
             $query->where('production_date',$this->today)->get();
         }]);
 
         $task_lists = ActivityLookup::lists('description', 'description');
 
-        return view('home', compact('page_title','tasks','task_lists'));
+        return view('home', compact('tasks','task_lists'));
     }
 
     public function showAttendance(Request $request){
-        $page_title = "Attendance";
         $this->user = User::find(auth()->user()->id);
 
-        $date_from = $request->date_from ? Carbon::createFromFormat('m/d/Y',$request->date_from) : Carbon::yesterday()->subDay(7);
-        $date_to = $request->date_to ? Carbon::createFromFormat('m/d/Y',$request->date_to) : Carbon::yesterday();
+        $sql = "select id,operator_id,production_date,
+                MIN((select time_log from daily_time_records as tin where in_out = 1 and tin.operator_id = tl.operator_id and (tin.time_log = tl.time_log)))as time_in,
+                MAX((select time_log from daily_time_records as tout where in_out = 2 and tout.operator_id = tl.operator_id and (tout.time_log = tl.time_log))) as time_out
+                from daily_time_records as tl where (production_date BETWEEN :date_from AND :date_to)
+                AND operator_id = :operator_id group by operator_id,production_date order by operator_id";
 
+        $biometrics = DB::select(DB::raw("$sql"),
+            array('date_from' => str_to_carbon($request->date_from,'m/d/Y')->startOfDay(),'date_to' => str_to_carbon($request->date_to,'m/d/Y')->endOfDay(),'operator_id' => $this->user->employee_no)
+        );
 
-        $date1= $date_from->format('m/d/Y');
-        $date2 = $date_to->format('m/d/Y');
+        return view('attendance', compact('biometrics'));
 
-
-        $user_logins = $this->user->load(['user_logins'=>function($query){
-            $query->where('production_date',$this->today)->get();
-        }]);
-
-        $checkout = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(max(time_log)) as time_log,IF(in_out = 1, "0", "1") as in_out')
-            ->where('operator_id',$this->user->employee_no)
-            ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
-            ->where('in_out',2)
-            ->groupBy('production_date','operator_id','in_out');
-        $biometrics = DailyTimeRecord::selectraw('operator_id,DATE_FORMAT(production_date,"%d/%m/%Y") as production_date,TIME(time_log) as time_log,IF(in_out = 1, "0", "1") as in_out')
-            ->where('operator_id',$this->user->employee_no)
-            ->whereBetween('time_log',[$date_from->startOfDay(),$date_to->endOfDay()])
-            ->where('in_out',1)
-            ->union($checkout)
-            ->groupBy('production_date','operator_id','in_out')
-            ->orderBy('production_date','asc')
-            ->orderBy('operator_id','asc')
-            ->orderBy('in_out','asc')
-            ->get();
-
-        return view('attendance', compact('page_title','user_logins','biometrics','date1','date2'));
 
     }
 
     public function showPunch(Request $request){
-        $page_title = "Attendance";
         $this->user = User::find(auth()->user()->id);
 
         $date_from = $request->date_from ? Carbon::createFromFormat('m/d/Y',$request->date_from) : Carbon::yesterday()->subDay(7);

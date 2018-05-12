@@ -13,6 +13,6 @@ class Department extends Model
     ];
 
     public function users(){
-        return $this->hasmany('App\User','department_code','department');
+        return $this->hasmany('App\User','id','department');
     }
 }

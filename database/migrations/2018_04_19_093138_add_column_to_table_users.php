@@ -13,7 +13,7 @@ class AddColumnToTableUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('department');
+            $table->integer('department');
             $table->string('position');
             $table->date('birth_date');
             $table->date('employment_date');

@@ -1,25 +1,20 @@
-@extends('layouts.agent.home')
+@extends('layouts.agent.home',['page_title'=>'Job Monitoring'])
 
 @section('content')
     <div class="row">
         <div class="col-xs-12">
 
             <div class="box box-primary">
-
                 <div class="box-header">
-
-
-
             </div>
-                <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tbody><tr>
-                            <th>Date</th>
-                            <th>Activity Name</th>
-                            <th>Time Started</th>
-                            <th>Time End</th>
-                            <th>Total Hours</th>
+                            <th>DATE</th>
+                            <th>ACTIVITY NAME</th>
+                            <th>TIME STARTED</th>
+                            <th>TIME END</th>
+                            <th>TOTAL HOURS</th>
                         </tr>
                         @foreach($tasks->tasks as $task)
                         <tr>

@@ -37,7 +37,7 @@ class User extends Authenticatable
     }
 
     public function dept(){
-        return $this->belongsTo('App\Department','department','department_code');
+        return $this->belongsTo('App\Department','department','id');
     }
 
     public function leaves(){

@@ -17,6 +17,14 @@ function carbon_yesterday($format){
     return Carbon::yesterday()->format($format);
 }
 
+function carbon_last($days,$format){
+    return Carbon::now()->subDay($days)->format($format);
+}
+
+function date_now(){
+    return Carbon::now();
+}
+
 function carbon_tomorrow($format){
     return Carbon::tomorrow()->format($format);
 }
@@ -24,3 +32,4 @@ function carbon_tomorrow($format){
 function getInput($field,$default=""){
     return isset($_GET[$field]) ? $_GET[$field] : $default;
 }
+
